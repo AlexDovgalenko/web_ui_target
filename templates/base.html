@@ -19,6 +19,15 @@
                             <button type="submit" class="search-btn">🔍</button>
                         </form>
                     </div>
+                    
+                    <div class="view-selector">
+                        <label for="view-mode">View:</label>
+                        <select id="view-mode" class="view-dropdown" onchange="changeViewMode()">
+                            <option value="full" {% if request.args.get('view', 'full') == 'full' %}selected{% endif %}>Full</option>
+                            <option value="compact" {% if request.args.get('view', 'full') == 'compact' %}selected{% endif %}>Compact</option>
+                        </select>
+                    </div>
+                    
                     <span class="welcome">Welcome, {{ session.user_name }}!</span>
                     <a href="{{ url_for('logout') }}" class="btn btn-secondary">Log Out</a>
                 {% else %}
@@ -42,5 +51,18 @@
         
         {% block content %}{% endblock %}
     </main>
+
+    <script>
+        function changeViewMode() {
+            const viewMode = document.getElementById('view-mode').value;
+            const currentUrl = new URL(window.location);
+            
+            // Update the view parameter
+            currentUrl.searchParams.set('view', viewMode);
+            
+            // Reload the page with the new view mode
+            window.location.href = currentUrl.toString();
+        }
+    </script>
 </body>
 </html>
