@@ -1,0 +1,11 @@
+[project]
+name = "web-ui-target"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "flask>=2.3.3",
+    "gunicorn>=21.2.0 ; sys_platform != 'win32'",
+    "waitress>=2.1.2 ; sys_platform == 'win32'"
+]
