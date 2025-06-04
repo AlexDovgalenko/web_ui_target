@@ -318,6 +318,126 @@ main {
     }
 }
 
+/* Toast Notification Styles */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    max-width: 350px;
+}
+
+.toast {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-left: 4px solid #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transform: translateX(100%);
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+.toast-show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.toast-hide {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+/* Toast types */
+.toast-success {
+    border-left-color: #28a745;
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.toast-error {
+    border-left-color: #dc3545;
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.toast-info {
+    border-left-color: #17a2b8;
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.toast-warning {
+    border-left-color: #ffc107;
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+/* Toast content */
+.toast span {
+    flex-grow: 1;
+    margin-right: 10px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* Close button */
+.toast-close {
+    background: none;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    color: inherit;
+    cursor: pointer;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.toast-close:hover {
+    opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .toast-container {
+        right: 10px;
+        left: 10px;
+        top: 10px;
+        max-width: none;
+    }
+    
+    .toast {
+        margin-bottom: 8px;
+        padding: 10px 12px;
+    }
+    
+    .toast span {
+        font-size: 13px;
+    }
+}
+
+/* Remove old flash message styles since we're using toasts now */
+.flash-messages {
+    display: none; /* Hide the old flash messages */
+}
+
+/* Keep existing styles for reference but hide them */
+.flash-message {
+    display: none;
+}
+
 /* View Selector Dropdown */
 .view-selector {
     display: flex;
