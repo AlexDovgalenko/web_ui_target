@@ -100,4 +100,4 @@ report.html
 assets/
 
 # DB
-app.db
+*.db
