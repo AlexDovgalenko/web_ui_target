@@ -1,0 +1,81 @@
+/* Auth Forms */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+}
+
+.auth-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-form h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-group input:focus {
+    border-color: #1e7115;
+    box-shadow: 0 0 5px rgba(39, 174, 96, 0.3);
+    outline: none;
+}
+
+.auth-link {
+    text-align: center;
+    margin-top: 1rem;
+    color: #666;
+}
+
+.auth-link a {
+    color: #1e7115;
+    text-decoration: none;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
+}
+
+.test-credentials {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border: 1px solid #e9ecef;
+}
+
+.test-credentials h4 {
+    margin-bottom: 0.5rem;
+    color: #495057;
+}
+
+.test-credentials p {
+    margin: 0.2rem 0;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
