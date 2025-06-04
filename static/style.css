@@ -8,7 +8,7 @@ body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
     color: #333;
-    background-color: #f4f4f4;
+    background-color: #e9e9e9;
 }
 
 .container {
@@ -19,7 +19,7 @@ body {
 
 /* Header Styles */
 header {
-    background-color: #2c3e50;
+    background-color: #1c7127; /* Changed to green */
     color: white;
     padding: 1rem 0;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -57,12 +57,12 @@ nav {
     padding: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 4px 0 0 4px;
-    outline: none;
-    width: 200px;
+    outline: 2px solid #45ab2e;
+    width: 300px;
 }
 
 .search-btn {
-    background-color: #3498db;
+    background-color: #73cb68; /* Changed to green */
     color: white;
     border: none;
     padding: 0.5rem 0.8rem;
@@ -72,7 +72,7 @@ nav {
 }
 
 .search-btn:hover {
-    background-color: #2980b9;
+    background-color: #3cb42f; /* Changed to darker green */
 }
 
 .welcome {
@@ -93,21 +93,21 @@ nav {
 }
 
 .btn-primary {
-    background-color: #3498db;
+    background-color: #73cb68; /* Changed to green */
     color: white;
 }
 
 .btn-primary:hover {
-    background-color: #2980b9;
+    background-color: #3cb42f; /* Changed to darker green */
 }
 
 .btn-secondary {
-    background-color: #95a5a6;
+    background-color: #819b8d;
     color: white;
 }
 
 .btn-secondary:hover {
-    background-color: #7f8c8d;
+    background-color: #5d7a64;
 }
 
 .btn-full {
@@ -145,7 +145,7 @@ main {
 
 .flash-info {
     background-color: #d1ecf1;
-    color: #0c5460;
+    color: #0c604e;
     border: 1px solid #bee5eb;
 }
 
@@ -192,9 +192,9 @@ main {
 }
 
 .form-group input:focus {
+    border-color: #1e7115; /* Changed to green */
+    box-shadow: 0 0 5px rgba(39, 174, 96, 0.3); /* Adjusted green shadow */
     outline: none;
-    border-color: #3498db;
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
 }
 
 .auth-link {
@@ -204,7 +204,7 @@ main {
 }
 
 .auth-link a {
-    color: #3498db;
+    color: #1e7115;
     text-decoration: none;
 }
 
@@ -279,6 +279,7 @@ main {
 .article-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    background-color: #d9eecf; /* Added subtle green hover effect */
 }
 
 .article-card h3 {
@@ -333,7 +334,7 @@ main {
     padding: 12px 16px;
     margin-bottom: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border-left: 4px solid #007bff;
+    border-left: 4px solid #00ff99;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -356,9 +357,9 @@ main {
 
 /* Toast types */
 .toast-success {
-    border-left-color: #28a745;
-    background-color: #d4edda;
-    color: #155724;
+    border-left-color: #27ae60; /* Changed to green */
+    background-color: #d4edda; /* Kept success background */
+    color: #155724; /* Kept success text color */
 }
 
 .toast-error {
@@ -447,7 +448,7 @@ main {
 }
 
 .view-selector label {
-    color: #ecf0f1;
+    color: #d8dcdd;
     font-size: 0.9rem;
     white-space: nowrap;
 }
@@ -456,7 +457,7 @@ main {
     padding: 0.4rem 0.6rem;
     border: 1px solid #ddd;
     border-radius: 4px;
-    background-color: white;
+    background-color: #eae9e9;
     color: #333;
     font-size: 0.85rem;
     cursor: pointer;
@@ -465,8 +466,8 @@ main {
 }
 
 .view-dropdown:focus {
-    border-color: #3498db;
-    box-shadow: 0 0 3px rgba(52, 152, 219, 0.3);
+    border-color: #4ee653c6; 
+    box-shadow: 0 0 3px #27ae604d;
 }
 
 .view-dropdown:hover {
