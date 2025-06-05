@@ -6,48 +6,71 @@
     <title>{% block title %}Programming Articles App{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
-    <header>
-        <div class="container">
-            <h1><a href="{{ url_for('home') }}">Programming Articles</a></h1>
-            <nav>
+<body data-testid="app-body">
+    <header data-testid="app-header">
+        <div class="container" data-testid="header-container">
+            <h1 data-testid="app-title">
+                <a href="{{ url_for('home') }}" data-testid="home-link">Programming Articles</a>
+            </h1>
+            <nav data-testid="main-navigation">
                 {% if session.user_id %}
-                    <div class="search-container">
-                        <form method="GET" action="{{ url_for('home') }}" class="search-form">
-                            <input type="text" name="search" placeholder="Search articles..." 
-                                   value="{{ request.args.get('search', '') }}" class="search-input">
-                            <button type="submit" class="search-btn">🔍</button>
+                    <div class="search-container" data-testid="search-container">
+                        <form method="GET" action="{{ url_for('home') }}" class="search-form" data-testid="search-form">
+                            <input type="text" 
+                                   name="search" 
+                                   placeholder="Search articles..." 
+                                   value="{{ request.args.get('search', '') }}" 
+                                   class="search-input"
+                                   data-testid="search-input">
+                            <button type="submit" 
+                                    class="search-btn" 
+                                    data-testid="search-button">🔍</button>
                         </form>
                     </div>
                     
-                    <div class="view-selector">
-                        <label for="view-mode">View:</label>
-                        <select id="view-mode" class="view-dropdown" onchange="changeViewMode()">
-                            <option value="full" {% if request.args.get('view', 'full') == 'full' %}selected{% endif %}>Full</option>
-                            <option value="compact" {% if request.args.get('view', 'full') == 'compact' %}selected{% endif %}>Compact</option>
+                    <div class="view-selector" data-testid="view-selector">
+                        <label for="view-mode" data-testid="view-mode-label">View:</label>
+                        <select id="view-mode" 
+                                class="view-dropdown" 
+                                onchange="changeViewMode()" 
+                                data-testid="view-mode-dropdown">
+                            <option value="full" 
+                                    {% if request.args.get('view', 'full') == 'full' %}selected{% endif %}
+                                    data-testid="view-mode-full">Full</option>
+                            <option value="compact" 
+                                    {% if request.args.get('view', 'full') == 'compact' %}selected{% endif %}
+                                    data-testid="view-mode-compact">Compact</option>
                         </select>
                     </div>
                     
-                    <span class="welcome">Welcome, {{ session.user_name }}!</span>
-                    <a href="{{ url_for('logout') }}" class="btn btn-secondary">Log Out</a>
+                    <span class="welcome" data-testid="welcome-message">Welcome, {{ session.user_name }}!</span>
+                    <a href="{{ url_for('logout') }}" 
+                       class="btn btn-secondary" 
+                       data-testid="logout-button">Log Out</a>
                 {% else %}
-                    <a href="{{ url_for('login') }}" class="btn btn-primary">Log In</a>
-                    <a href="{{ url_for('signup') }}" class="btn btn-secondary">Sign Up</a>
+                    <a href="{{ url_for('login') }}" 
+                       class="btn btn-primary" 
+                       data-testid="login-link">Log In</a>
+                    <a href="{{ url_for('signup') }}" 
+                       class="btn btn-secondary" 
+                       data-testid="signup-link">Sign Up</a>
                 {% endif %}
             </nav>
         </div>
     </header>
 
     <!-- Toast Container -->
-    <div id="toast-container" class="toast-container"></div>
+    <div id="toast-container" class="toast-container" data-testid="toast-container"></div>
 
-    <main class="container">
+    <main class="container" data-testid="main-content">
         <!-- Hidden flash messages for JavaScript to process -->
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
-                <div id="flash-messages" style="display: none;">
+                <div id="flash-messages" style="display: none;" data-testid="flash-messages">
                     {% for category, message in messages %}
-                        <div data-category="{{ category }}" data-message="{{ message }}"></div>
+                        <div data-category="{{ category }}" 
+                             data-message="{{ message }}" 
+                             data-testid="flash-message-{{ loop.index }}"></div>
                     {% endfor %}
                 </div>
             {% endif %}
@@ -56,6 +79,85 @@
         {% block content %}{% endblock %}
     </main>
 
-    <script src="{{ url_for('static', filename='js/toast.js') }}"></script>
+    <script>
+        // Toast notification system
+        function showToast(message, category = 'info', duration = 4000) {
+            const toastContainer = document.getElementById('toast-container');
+            
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${category} toast-show`;
+            toast.setAttribute('data-testid', `toast-${category}-${Date.now()}`);
+            
+            // Add close button
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'toast-close';
+            closeBtn.innerHTML = '×';
+            closeBtn.setAttribute('data-testid', `toast-close-${Date.now()}`);
+            closeBtn.onclick = () => removeToast(toast);
+            
+            // Add message content
+            const messageSpan = document.createElement('span');
+            messageSpan.textContent = message;
+            messageSpan.setAttribute('data-testid', `toast-message-${Date.now()}`);
+            
+            // Assemble toast
+            toast.appendChild(messageSpan);
+            toast.appendChild(closeBtn);
+            
+            // Add to container
+            toastContainer.appendChild(toast);
+            
+            // Auto-remove after duration
+            setTimeout(() => {
+                removeToast(toast);
+            }, duration);
+        }
+        
+        function removeToast(toast) {
+            if (toast && toast.parentNode) {
+                toast.classList.add('toast-hide');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300); // Match CSS transition duration
+            }
+        }
+        
+        // Process Flask flash messages on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const flashMessagesContainer = document.getElementById('flash-messages');
+            if (flashMessagesContainer) {
+                const messages = flashMessagesContainer.querySelectorAll('[data-category]');
+                messages.forEach(msg => {
+                    const category = msg.getAttribute('data-category');
+                    const message = msg.getAttribute('data-message');
+                    showToast(message, category);
+                });
+            }
+        });
+        
+        function changeViewMode() {
+            const viewMode = document.getElementById('view-mode').value;
+            const currentUrl = new URL(window.location);
+            
+            // Update the view parameter
+            currentUrl.searchParams.set('view', viewMode);
+            
+            // Show toast notification for view change
+            showToast(`Switched to ${viewMode} view`, 'info', 2000);
+            
+            // Reload the page with the new view mode
+            setTimeout(() => {
+                window.location.href = currentUrl.toString();
+            }, 500);
+        }
+        
+        // Function to manually trigger toast (for testing or other uses)
+        function triggerToast(message, type = 'info') {
+            showToast(message, type);
+        }
+    </script>
 </body>
 </html>

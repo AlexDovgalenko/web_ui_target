@@ -2,27 +2,35 @@
 
 {% block content %}
 {% if is_logged_in %}
-    <div class="articles-container">
+    <div class="articles-container" data-testid="articles-container">
         {% set view_mode = request.args.get('view', 'full') %}
         
         {% if search_query %}
-            <h2>Search Results for "{{ search_query }}"</h2>
+            <h2 data-testid="search-results-title">Search Results for "{{ search_query }}"</h2>
             {% if articles %}
-                <p>Found {{ articles|length }} article(s) - <span class="view-indicator">{{ view_mode.title() }} view</span></p>
+                <p data-testid="search-results-count">
+                    Found {{ articles|length }} article(s) - 
+                    <span class="view-indicator" data-testid="search-view-indicator">{{ view_mode.title() }} view</span>
+                </p>
             {% else %}
-                <p>No articles found matching your search.</p>
+                <p data-testid="no-search-results">No articles found matching your search.</p>
             {% endif %}
         {% else %}
-            <h2>Programming Articles <span class="view-indicator">- {{ view_mode.title() }} View</span></h2>
+            <h2 data-testid="articles-main-title">
+                Programming Articles 
+                <span class="view-indicator" data-testid="main-view-indicator">- {{ view_mode.title() }} View</span>
+            </h2>
         {% endif %}
         
         {% if articles %}
-            <div class="articles-grid {% if view_mode == 'compact' %}articles-grid-compact{% endif %}">
+            <div class="articles-grid {% if view_mode == 'compact' %}articles-grid-compact{% endif %}" 
+                 data-testid="articles-grid">
                 {% for article in articles %}
-                    <article class="article-card {% if view_mode == 'compact' %}article-card-compact{% endif %}">
-                        <h3>{{ article.title }}</h3>
+                    <article class="article-card {% if view_mode == 'compact' %}article-card-compact{% endif %}" 
+                             data-testid="article-card-{{ loop.index }}">
+                        <h3 data-testid="article-title-{{ loop.index }}">{{ article.title }}</h3>
                         {% if view_mode == 'full' %}
-                            <p class="article-content">{{ article.content }}</p>
+                            <p class="article-content" data-testid="article-content-{{ loop.index }}">{{ article.content }}</p>
                         {% endif %}
                     </article>
                 {% endfor %}
@@ -30,12 +38,16 @@
         {% endif %}
     </div>
 {% else %}
-    <div class="welcome-container">
-        <h2>Welcome to Programming Articles</h2>
-        <p>Please log in to view our collection of programming articles.</p>
-        <div class="welcome-actions">
-            <a href="{{ url_for('login') }}" class="btn btn-primary">Log In</a>
-            <a href="{{ url_for('signup') }}" class="btn btn-secondary">Sign Up</a>
+    <div class="welcome-container" data-testid="welcome-container">
+        <h2 data-testid="welcome-title">Welcome to Programming Articles</h2>
+        <p data-testid="welcome-description">Please log in to view our collection of programming articles.</p>
+        <div class="welcome-actions" data-testid="welcome-actions">
+            <a href="{{ url_for('login') }}" 
+               class="btn btn-primary" 
+               data-testid="welcome-login-button">Log In</a>
+            <a href="{{ url_for('signup') }}" 
+               class="btn btn-secondary" 
+               data-testid="welcome-signup-button">Sign Up</a>
         </div>
     </div>
 {% endif %}
